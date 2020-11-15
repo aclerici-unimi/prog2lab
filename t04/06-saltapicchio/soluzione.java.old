@@ -1,0 +1,18 @@
+class soluzione {
+	static boolean diffInArr(int num, String[] arr) {
+		for (int i = 1; i < arr.length; i++) {
+			int diff = Integer.parseInt(arr[i]) - Integer.parseInt(arr[i - 1]);
+			if (num == (diff >= 0 ? diff : -diff))
+				return true;
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		for (int i = 1; i < args.length; i++) {
+			if (!diffInArr(i, args))
+				return;
+		}
+		System.out.println("saltapicchio");
+	}
+}
