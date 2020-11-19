@@ -5,6 +5,7 @@ public class Test {
 		Scanner sc = new Scanner(System.in);
 		SimpleMap m = new SimpleMap();
 		while (sc.hasNext()) {
+			// System.out.println(m);
 			if (sc.next().equals("+")) {
 				m.put(sc.next(), sc.nextInt());
 			} else {

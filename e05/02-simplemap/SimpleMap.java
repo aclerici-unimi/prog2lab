@@ -140,7 +140,18 @@ public class SimpleMap {
 	 */
 	@Override
 	public String toString() {
-		return "not implemented yet";
+		String res = "{ ";
+		int size = this.size();
+		if (size > 0) {
+			ListIterator<Pair> it = entries.listIterator();
+			Pair p = it.next();
+			while (it.hasNext()) {
+				res += p.key + "->" + p.value + ", ";
+				p = it.next();
+			}
+			res += p.key + "->" + p.value + " ";
+		}
+		return res + "}";
 	}
 
 	/**
