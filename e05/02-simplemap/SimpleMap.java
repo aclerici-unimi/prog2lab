@@ -59,7 +59,7 @@ public class SimpleMap {
 				return false;
 			ListIterator<Pair> it = entries.listIterator(i + 1);
 			while (it.hasNext())
-				if (p.key == it.next().key)
+				if (p.key.equals(it.next().key))
 					return false;
 			i++;
 		}
@@ -75,7 +75,7 @@ public class SimpleMap {
 	 */
 	public boolean isIn(String k) {
 		for (Pair p : entries)
-			if (p.key == k)
+			if (p.key.equals(k))
 				return true;
 		return false;
 	}
@@ -89,7 +89,7 @@ public class SimpleMap {
 	 */
 	public void put(String k, int v) {
 		for (Pair p : entries)
-			if (p.key == k) {
+			if (p.key.equals(k)) {
 				p.value = v;
 				return;
 			}
@@ -104,8 +104,10 @@ public class SimpleMap {
 	 */
 	public void remove(String k) {
 		for (Pair p : entries)
-			if (p.key == k)
+			if (p.key.equals(k)) {
 				entries.remove(p);
+				return;
+			}
 		throw new NoSuchElementException("cannot remove entry of key " + k + ", no such entry exists");
 	}
 
@@ -117,8 +119,8 @@ public class SimpleMap {
 	 */
 	public int get(String k) {
 		for (Pair p : entries)
-			if (p.key == k)
-				entries.remove(p);
+			if (p.key.equals(k))
+				return p.value;
 		throw new NoSuchElementException("cannot remove entry of key " + k + ", no such entry exists");
 	}
 
@@ -162,7 +164,7 @@ public class SimpleMap {
 		for (Pair p : this.entries) {
 			found = false;
 			for (Pair q : other.entries) {
-				if (p.key == q.key && p.value == q.value) {
+				if (p.key.equals(q.key) && p.value == q.value) {
 					found = true;
 					break;
 				}
