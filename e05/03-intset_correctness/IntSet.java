@@ -147,7 +147,7 @@ public class IntSet {
 	}
 
 	/**
-	 * Returns the hash code value for this list.
+	 * Returns the hash code value for this IntSet.
 	 *
 	 * @return the hash code.
 	 */

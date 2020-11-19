@@ -236,7 +236,7 @@ public class Poly implements Cloneable {
 	}
 
 	/**
-	 * Returns the hash code value for this list.
+	 * Returns the hash code value for this Poly.
 	 *
 	 * @return the hash code.
 	 */
