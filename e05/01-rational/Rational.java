@@ -48,12 +48,35 @@ public class Rational implements Cloneable {
 	}
 
 	/**
+	 * Returns the greater common divisor of the naturals a and b. Assumes a and b
+	 * non negative.
+	 * 
+	 * @param a first natural
+	 * @param b second natural
+	 * @return GCD of a and b
+	 */
+	public static int gcd(int a, int b) {
+		while (b > 0) {
+			int c = a % b;
+			a = b;
+			b = c;
+		}
+		return a;
+	}
+
+	/**
 	 * Reduces this Rational in an irreducible one.
 	 * 
 	 * @return this reduced
 	 */
 	public Rational reduce() {
-
+		boolean negative = num * den < 0;
+		int n = Math.abs(num);
+		int d = Math.abs(den);
+		int gcd = gcd(n, d);
+		if (negative)
+			return new Rational(-n / gcd, d / gcd);
+		return new Rational(n / gcd, d / gcd);
 	}
 
 	/**
@@ -63,7 +86,7 @@ public class Rational implements Cloneable {
 	 * @return the sum
 	 */
 	public Rational add(Rational q) {
-
+		return new Rational(this.num * q.den + q.num * this.den, this.den * q.den).reduce();
 	}
 
 	/**
@@ -72,8 +95,8 @@ public class Rational implements Cloneable {
 	 * @param q factor
 	 * @return the product
 	 */
-	public Rational mult(Rational q) {
-
+	public Rational mul(Rational q) {
+		return new Rational(this.num * q.num, this.den * q.den).reduce();
 	}
 
 	/**
@@ -96,7 +119,22 @@ public class Rational implements Cloneable {
 	 * @throws ArithmeticException if q is zero
 	 */
 	public Rational div(Rational q) {
+		return this.mul(q.reciprocal());
+	}
 
+	/**
+	 * Returns a string identifying this Rational.
+	 *
+	 * @return a string identifying this Rational.
+	 */
+	@Override
+	public String toString() {
+		if (this.num == this.den)
+			return "1";
+		String res = "" + this.num;
+		if (this.den != 1 && this.num != 0)
+			res += "/" + this.den;
+		return res;
 	}
 
 	/**
@@ -124,6 +162,16 @@ public class Rational implements Cloneable {
 	@Override
 	public int hashCode() {
 		return 31 * num + den;
+	}
+
+	/**
+	 * Returns a shallow copy of this Rational.
+	 *
+	 * @return a clone of this
+	 */
+	@Override
+	public Rational clone() {
+		return this;
 	}
 
 }
