@@ -9,7 +9,7 @@ class Pair {
 	final String key;
 	int value;
 
-	Pair(String key, int value) {
+	Pair(String key, int value) { // can't be null
 		this.key = key;
 		this.value = value;
 	}
@@ -31,7 +31,7 @@ public class SimpleMap {
 	 * entries.get(entries.size()-1).value}.
 	 *
 	 * Representation Invariant: entries is not null, entries cannot contain two
-	 * Pairs p1 and p2 such that p1.key == p2.key; no Pair p is such that
+	 * Pairs p1 and p2 such that p1.key == p2.key; no Pair p is such that p==null or
 	 * p.key==null.
 	 *
 	 * Abstraction Invariant: a map maps two equal keys into two equal values
@@ -39,7 +39,8 @@ public class SimpleMap {
 
 	/** Constructs an empty SimpleMap. */
 	public SimpleMap() {
-		this.entries = new LinkedList<Pair>();
+		this.entries = new LinkedList<Pair>(); // not null and no (invalid) pair
+		assert repOk();
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class SimpleMap {
 			return false;
 		int i = 0;
 		for (Pair p : entries) {
-			if (p.key == null)
+			if (p == null || p.key == null)
 				return false;
 			ListIterator<Pair> it = entries.listIterator(i + 1);
 			while (it.hasNext())
@@ -72,6 +73,7 @@ public class SimpleMap {
 	 * @return true if there's an entry of key {@code k} in this.
 	 */
 	public boolean isIn(String k) {
+		// observer method
 		for (Pair p : entries)
 			if (p.key.equals(k))
 				return true;
@@ -84,14 +86,20 @@ public class SimpleMap {
 	 *
 	 * @param k key
 	 * @param v value
+	 * @throws IllegalArgumentException if k==null
 	 */
 	public void put(String k, int v) {
+		// entries is not null by hypothesis
+		if (k == null)
+			// excludes null key
+			throw new IllegalArgumentException("can't add a null key");
 		for (Pair p : entries)
 			if (p.key.equals(k)) {
 				p.value = v;
-				return;
+				return; // excludes duplicate keys
 			}
-		entries.add(new Pair(k, v));
+		entries.add(new Pair(k, v)); // excludes null Pairs
+		assert repOk();
 	}
 
 	/**
@@ -101,9 +109,11 @@ public class SimpleMap {
 	 * @throws NoSuchElementException if the key {@code k} is not present.
 	 */
 	public void remove(String k) {
+		// entries is not null by hypothesis
 		for (Pair p : entries)
 			if (p.key.equals(k)) {
-				entries.remove(p);
+				entries.remove(p); // cannot generate duplicates or null Pairs/keys
+				assert repOk();
 				return;
 			}
 		throw new NoSuchElementException("cannot remove entry of key " + k + ", no such entry exists");
@@ -116,6 +126,7 @@ public class SimpleMap {
 	 * @throws NoSuchElementException if the key {@code k} is not present.
 	 */
 	public int get(String k) {
+		// observer method
 		for (Pair p : entries)
 			if (p.key.equals(k))
 				return p.value;
@@ -128,6 +139,7 @@ public class SimpleMap {
 	 * @return size of this.
 	 */
 	public int size() {
+		// observer method
 		return entries.size();
 	}
 
