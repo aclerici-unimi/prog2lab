@@ -1,20 +1,7 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-
-/**
- * Auxiliary class used by SimpleMap
- */
-class Pair {
-	final String key;
-	int value;
-
-	Pair(String key, int value) { // can't be null
-		this.key = key;
-		this.value = value;
-	}
-
-}
 
 /**
  * Minimal implementation of the concept of map, specific to
@@ -26,13 +13,11 @@ public class SimpleMap {
 	private final LinkedList<Pair> entries;
 
 	/*
-	 * Abstraction Function: A(entries) = map{entries.get(0).key ->
-	 * entries.get(0).value, ..., entries.get(entries.size()-1).key ->
-	 * entries.get(entries.size()-1).value}.
+	 * Abstraction Function: A(entries) = map{entries.get(0), ...,
+	 * entries.get(entries.size()-1)}.
 	 *
 	 * Representation Invariant: entries is not null, entries cannot contain two
-	 * Pairs p1 and p2 such that p1.key == p2.key; no Pair p is such that p==null or
-	 * p.key==null.
+	 * Pairs p1 and p2 such that p1.key == p2.key; *
 	 *
 	 * Abstraction Invariant: a map maps two equal keys into two equal values
 	 */
@@ -54,7 +39,7 @@ public class SimpleMap {
 			return false;
 		int i = 0;
 		for (Pair p : entries) {
-			if (p == null || p.key == null)
+			if (p == null || !p.repOk())
 				return false;
 			ListIterator<Pair> it = entries.listIterator(i + 1);
 			while (it.hasNext())
@@ -63,6 +48,81 @@ public class SimpleMap {
 			i++;
 		}
 		return true;
+	}
+
+	private static class Pair {
+		private final String key;
+		int value;
+
+		/*
+		 * Abstraction Function: A(key, value) = mapping key->value
+		 *
+		 * Representation Invariant: this!=null and this.key!=null Pairs p1 and p2 such
+		 * that p1.key == p2.key; *
+		 */
+
+		Pair(String key, int value) { // can't be null
+			this.key = key;
+			this.value = value;
+			assert repOk();
+		}
+
+		/**
+		 * Implementation of the representation invariant. Returns true if the
+		 * representation respects all its requirements. Used in assertions.
+		 * 
+		 * @return true if the representation is ok; false otherwise.
+		 */
+		public boolean repOk() {
+			return key != null;
+		}
+
+		/**
+		 * Returns a string identifying this Pair.
+		 *
+		 * @return a string identifying this Pair.
+		 */
+		@Override
+		public String toString() {
+			return this.key + "->" + this.value;
+		}
+
+		/**
+		 * Compares the specified object with this Pair for equality. Two {@code Pair}s
+		 * are defined to be equals if they map the same key to the same value.
+		 *
+		 * @param o the object to be compared with this.
+		 * @return true if this and o are equals.
+		 */
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this)
+				return true;
+			if (!(obj instanceof SimpleMap))
+				return false;
+			Pair other = (Pair) obj;
+			return this.key.equals(other.key) && this.value == other.value;
+		}
+
+		/**
+		 * Returns the hash code value for this Pair.
+		 *
+		 * @return the hash code.
+		 */
+		@Override
+		public int hashCode() {
+			return 31 * key.hashCode() + value;
+		}
+
+		/**
+		 * Returns a shallow copy of this Pair instance.
+		 *
+		 * @return a clone of this
+		 */
+		public Pair clone() {
+			return new Pair(key, value);
+		}
+
 	}
 
 	/**
@@ -153,13 +213,13 @@ public class SimpleMap {
 		String res = "{ ";
 		int size = this.size();
 		if (size > 0) {
-			ListIterator<Pair> it = entries.listIterator();
+			Iterator<Pair> it = entries.iterator();
 			Pair p = it.next();
 			while (it.hasNext()) {
-				res += p.key + "->" + p.value + ", ";
+				res += p.toString() + ", ";
 				p = it.next();
 			}
-			res += p.key + "->" + p.value + " ";
+			res += p.toString() + " ";
 		}
 		return res + "}";
 	}
@@ -167,7 +227,7 @@ public class SimpleMap {
 	/**
 	 * Compares the specified object with this SimpleMap for equality. Two
 	 * {@code SimpleMap}s are defined to be equal if they contain the same set of
-	 * keys, and same keys are mapped to the same values respectively.
+	 * {@code Pair}s (that is, equals in couples).
 	 *
 	 * @param o the object to be compared with this.
 	 * @return true if this and o are equals.
@@ -181,16 +241,8 @@ public class SimpleMap {
 		SimpleMap other = (SimpleMap) obj;
 		if (other.size() != this.size())
 			return false;
-		boolean found;
 		for (Pair p : this.entries) {
-			found = false;
-			for (Pair q : other.entries) {
-				if (p.key.equals(q.key) && p.value == q.value) {
-					found = true;
-					break;
-				}
-			}
-			if (!found)
+			if (!other.entries.contains(p))
 				return false;
 		}
 		return true;
@@ -205,8 +257,8 @@ public class SimpleMap {
 	public int hashCode() {
 		int res = 0;
 		for (Pair p : entries)
-			res += p.key.hashCode() + p.value;
-		return res;
+			res += p.hashCode();
+		return 31 * res;
 	}
 
 	/**
@@ -217,7 +269,7 @@ public class SimpleMap {
 	public SimpleMap clone() {
 		SimpleMap m = new SimpleMap();
 		for (Pair p : entries)
-			m.put(p.key, p.value);
+			m.entries.add(p.clone());
 		return m;
 	}
 
