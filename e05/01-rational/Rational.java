@@ -10,7 +10,7 @@ public class Rational implements Cloneable {
 	/*
 	 * Abstraction Function: A(num, den) = num/den rational number.
 	 *
-	 * Representation Invariant: den!=0
+	 * Representation Invariant: den!=0 (see note on repOk for correctness)
 	 *
 	 * Abstraction Invariant: den!=0
 	 */
@@ -24,9 +24,25 @@ public class Rational implements Cloneable {
 	 */
 	public Rational(int n, int d) {
 		if (d == 0)
-			throw new IllegalArgumentException("denominator can't be 0.");
+			throw new IllegalArgumentException("denominator can't be 0."); // excludes den==0
 		num = n;
 		den = d;
+		assert repOk();
+	}
+
+	/**
+	 * Implementation of the representation invariant. Returns true if the
+	 * representation respects all its requirements. Used in assertions.
+	 * 
+	 * @return true if the representation is ok; false otherwise.
+	 */
+	public boolean repOk() {
+		/*
+		 * note: in this implementation it doesn't really makes sense to assert repOk in
+		 * producer methods since they all return a new fresh instance of Rational using
+		 * a constructor which asserts repOk.
+		 */
+		return den != 0;
 	}
 
 	/**
@@ -106,8 +122,6 @@ public class Rational implements Cloneable {
 	 * @throws ArithmeticException if den is zero
 	 */
 	public Rational reciprocal() {
-		if (num == 0)
-			throw new ArithmeticException("illegal rational: can't divide by zero.");
 		return new Rational(den, num);
 	}
 
