@@ -282,6 +282,12 @@ public class Poly implements Cloneable {
 		return 0;
 	}
 
+	/**
+	 * Returns an iterator over the degrees of non-zero coefficient contained in
+	 * this Poly.
+	 * 
+	 * @return the iterator
+	 */
 	public Iterator<Term> terms() {
 		return new Iterator<Term>() {
 			private int nextIndex = terms.length;

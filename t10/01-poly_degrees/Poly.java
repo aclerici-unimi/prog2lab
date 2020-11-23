@@ -174,6 +174,12 @@ public class Poly implements Cloneable {
 		return this.coeff[d];
 	}
 
+	/**
+	 * Returns an iterator over the degrees of non-zero coefficient contained in
+	 * this Poly.
+	 * 
+	 * @return the iterator
+	 */
 	public Iterator<Integer> degrees() {
 		return new Iterator<Integer>() {
 			private int nextZero = 0;
