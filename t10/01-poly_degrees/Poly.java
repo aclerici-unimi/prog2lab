@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Iterator;
  * polynomials. Other then zero, the degree of a polynomial is the degree of the
  * term of highest degree with a non-zero coefficient.
  */
-public class Poly implements Cloneable {
+public class Poly {
 	private final int[] coeff;
 
 	/*
@@ -54,7 +55,7 @@ public class Poly implements Cloneable {
 	 * @return true if the representation is ok; false otherwise.
 	 */
 	public boolean repOk() {
-		return coeff != null && coeff[coeff.length - 1] == 0;
+		return coeff != null && coeff[coeff.length - 1] != 0;
 	}
 
 	/**
@@ -204,9 +205,9 @@ public class Poly implements Cloneable {
 	}
 
 	/**
-	 * Returns a string identifying this polynomial. It uses x as variable.
+	 * Returns a string identifying this Poly. It uses x as variable.
 	 *
-	 * @return a string identifying this set.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -273,11 +274,10 @@ public class Poly implements Cloneable {
 	 */
 	@Override
 	public int hashCode() {
-		int res = 0;
-		for (int i = 0; i < coeff.length; i++) {
-			res += i * coeff[i];
-		}
-		return res;
+		int c = 0;
+		for (int i = 0; i < coeff.length; i++)
+			c += 31 * i + coeff[i];
+		return 31 * degree() + c;
 	}
 
 }

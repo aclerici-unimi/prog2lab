@@ -6,7 +6,7 @@ import java.util.Iterator;
  * Implementation of the queue data structure with integer data. IntQueue
  * objects are mutable.
  */
-public class IntQueue {
+public class IntQueue implements Cloneable {
 	private final List<Integer> q;
 
 	/*
@@ -87,9 +87,9 @@ public class IntQueue {
 	}
 
 	/**
-	 * Returns a string identifying this queue.
+	 * Returns a string identifying this IntQueue.
 	 *
-	 * @return a string identifying this queue.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -102,6 +102,47 @@ public class IntQueue {
 			res += iter.next();
 		}
 		return res + "]";
+	}
+
+	/**
+	 * Returns a shallow copy of this IntQueue instance.
+	 *
+	 * @return a clone of this.
+	 */
+	@Override
+	public IntQueue clone() {
+		IntQueue res = new IntQueue();
+		for (Integer i : this.q)
+			res.enqueue(i);
+		return res;
+	}
+
+	/**
+	 * Returns the hash code value for this IntQueue.
+	 *
+	 * @return the hash code.
+	 */
+	@Override
+	public int hashCode() {
+		return q.hashCode();
+	}
+
+	/**
+	 * Compares the specified object with this IntQueue for equality. Two
+	 * {@code IntQueue}s are defined to be equal if they contain equal {@code int}s,
+	 * in the same place relative to the head of the queue.
+	 *
+	 * @param o the object to be compared with this.
+	 * @return true if this and o are equals.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof IntQueue))
+			return false;
+		IntQueue other = (IntQueue) obj;
+		return q.equals(other.q);
 	}
 
 }

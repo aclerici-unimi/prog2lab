@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * cannot appear more than once in a set. The class provides constructors to
  * make empty sets and to add, count, pick and remove elements.
  */
-public class IntSet {
+public class IntSet implements Cloneable {
 	private final List<Integer> elements;
 
 	/*
@@ -108,7 +108,7 @@ public class IntSet {
 	 * Returns a string identifying this set and its elements. It uses the
 	 * mathematical format: {elem1, elem2, ...}
 	 *
-	 * @return a string identifying this set.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -153,17 +153,13 @@ public class IntSet {
 	 */
 	@Override
 	public int hashCode() {
-		int res = 0;
-		for (Integer element : this.elements) {
-			res += element.hashCode();
-		}
-		return res;
+		return 31 * size() + elements.hashCode();
 	}
 
 	/**
 	 * Returns a shallow copy of this IntSet instance.
 	 *
-	 * @return a clone of this
+	 * @return a clone of this.
 	 */
 	@Override
 	public IntSet clone() {

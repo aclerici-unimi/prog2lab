@@ -5,7 +5,7 @@ import java.util.Iterator;
  * Implementation of the queue data structure with integer data and limited
  * capacity. IntQueue objects are mutable.
  */
-public class IntQueue {
+public class IntQueue implements Cloneable {
 	private final int[] elements;
 	private int head, tail;
 
@@ -143,9 +143,9 @@ public class IntQueue {
 	}
 
 	/**
-	 * Returns a string identifying this queue.
+	 * Returns a string identifying this IntQueue.
 	 *
-	 * @return a string identifying this queue.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -192,17 +192,17 @@ public class IntQueue {
 	public int hashCode() {
 		int res = 0;
 		for (int i = 0; i < size(); i++)
-			res += elements[(head + i) % elements.length];
+			res += 31 * elements[(head + i) % elements.length];
 		return res;
 	}
 
 	/**
 	 * Returns a shallow copy of this IntQueue instance.
 	 *
-	 * @return a clone of this
+	 * @return a clone of this.
 	 */
 	@Override
-	public IntQueue clone() throws CloneNotSupportedException {
+	public IntQueue clone() {
 		IntQueue res = new IntQueue(elements.length);
 		for (int i = 0; i < size(); i++)
 			res.enqueue(elements[(head + i) % elements.length]);

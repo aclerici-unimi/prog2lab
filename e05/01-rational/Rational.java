@@ -3,7 +3,7 @@
  * immutable objects which can be summed, multiplied and divided in couples,
  * each operation returning a new {@code Rational}.
  */
-public class Rational implements Cloneable {
+public class Rational {
 	private final int num;
 	private final int den;
 
@@ -139,7 +139,7 @@ public class Rational implements Cloneable {
 	/**
 	 * Returns a string identifying this Rational.
 	 *
-	 * @return a string identifying this Rational.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -175,17 +175,7 @@ public class Rational implements Cloneable {
 	 */
 	@Override
 	public int hashCode() {
-		return 31 * num + den;
-	}
-
-	/**
-	 * Returns a shallow copy of this Rational.
-	 *
-	 * @return a clone of this
-	 */
-	@Override
-	public Rational clone() {
-		return this;
+		return 31 * Integer.hashCode(num) + Integer.hashCode(den);
 	}
 
 }

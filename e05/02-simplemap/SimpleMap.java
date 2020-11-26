@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * of Pairs key-value, the key being a {@code String} and the value being an
  * {@code int}.
  */
-public class SimpleMap {
+public class SimpleMap implements Cloneable {
 	private final LinkedList<Pair> entries;
 
 	/*
@@ -117,7 +117,7 @@ public class SimpleMap {
 		/**
 		 * Returns a shallow copy of this Pair instance.
 		 *
-		 * @return a clone of this
+		 * @return a clone of this.
 		 */
 		public Pair clone() {
 			return new Pair(key, value);
@@ -206,7 +206,7 @@ public class SimpleMap {
 	/**
 	 * Returns a string identifying this SimpleMap and its entries.
 	 *
-	 * @return a string identifying this SimpleMap.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -257,14 +257,14 @@ public class SimpleMap {
 	public int hashCode() {
 		int res = 0;
 		for (Pair p : entries)
-			res += p.hashCode();
+			res += 31 * p.hashCode();
 		return 31 * res;
 	}
 
 	/**
 	 * Returns a shallow copy of this SimpleMap instance.
 	 *
-	 * @return a clone of this
+	 * @return a clone of this.
 	 */
 	public SimpleMap clone() {
 		SimpleMap m = new SimpleMap();

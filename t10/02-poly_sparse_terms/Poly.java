@@ -12,7 +12,7 @@ import java.util.Iterator;
  * polynomials. Other then zero, the degree of a polynomial is the degree of the
  * term of highest degree with a non-zero coefficient.
  */
-public class Poly implements Cloneable {
+public class Poly {
 	private final Term terms[];
 
 	/*
@@ -127,7 +127,7 @@ public class Poly implements Cloneable {
 
 		@Override
 		public int hashCode() {
-			return coeff + exp;
+			return 31 * Integer.hashCode(exp) + Integer.hashCode(coeff);
 		}
 
 		@Override
@@ -305,9 +305,9 @@ public class Poly implements Cloneable {
 	}
 
 	/**
-	 * Returns a string identifying this polynomial. It uses x as variable.
+	 * Returns a string identifying this Poly. It uses x as variable.
 	 *
-	 * @return a string identifying this set.
+	 * @return the string.
 	 */
 	@Override
 	public String toString() {
@@ -368,7 +368,7 @@ public class Poly implements Cloneable {
 	 */
 	@Override
 	public int hashCode() {
-		return Arrays.hashCode(terms);
+		return 31 * degree() + Arrays.hashCode(terms);
 	}
 
 }

@@ -12,7 +12,7 @@ public class Test {
 		ArrayList<Rational> numbers = new ArrayList<Rational>();
 
 		Rational r = new Rational(sc.nextInt(), sc.nextInt());
-		Rational sum = r.clone(), product = r.clone(), quotient = r.clone();
+		Rational sum = r, product = r, quotient = r;
 		numbers.add(r);
 		while (sc.hasNextInt()) {
 			r = new Rational(sc.nextInt(), sc.nextInt());
