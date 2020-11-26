@@ -8,9 +8,8 @@ public class Test {
 	public static void main(String[] args) {
 		OrderedIntList l = new OrderedIntList();
 		Scanner sc = new Scanner(System.in);
-		while (sc.hasNextInt()) {
+		while (sc.hasNextInt())
 			l.add(sc.nextInt());
-		}
 		sc.close();
 		int n;
 		Iterator<Integer> it = l.smallToBig();
@@ -31,7 +30,5 @@ public class Test {
 			}
 			System.out.println(n);
 		}
-		// testing toString
-		System.out.println(l);
 	}
 }

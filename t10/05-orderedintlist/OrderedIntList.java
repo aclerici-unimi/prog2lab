@@ -30,36 +30,40 @@ public class OrderedIntList {
 
 	private int greatest() {
 		// my implementation
-		if (left.isEmpty && right.isEmpty)
-			return value;
-		if (!left.isEmpty) {
+		if (left.isEmpty)
+			if (right.isEmpty)
+				return value;
+			else {
+				int r = right.greatest();
+				return r > value ? r : value;
+			}
+		else if (right.isEmpty) {
 			int l = left.greatest();
 			return l > value ? l : value;
+		} else {
+			int l = left.greatest(), r = right.greatest();
+			int lr = l > r ? l : r;
+			return lr > value ? lr : value;
 		}
-		if (!right.isEmpty) {
-			int r = right.greatest();
-			return r > value ? r : value;
-		}
-		int l = left.greatest(), r = right.greatest();
-		int lr = l > r ? l : r;
-		return lr > value ? lr : value;
 	}
 
 	private int least() {
 		// my implementation
-		if (left.isEmpty && right.isEmpty)
-			return value;
-		if (!left.isEmpty) {
+		if (left.isEmpty)
+			if (right.isEmpty)
+				return value;
+			else {
+				int r = right.least();
+				return r < value ? r : value;
+			}
+		else if (right.isEmpty) {
 			int l = left.least();
 			return l < value ? l : value;
+		} else {
+			int l = left.least(), r = right.least();
+			int lr = l < r ? l : r;
+			return lr < value ? lr : value;
 		}
-		if (!right.isEmpty) {
-			int r = right.least();
-			return r < value ? r : value;
-		}
-		int l = left.least(), r = right.least();
-		int lr = l < r ? l : r;
-		return lr < value ? lr : value;
 	}
 
 	/**
@@ -72,6 +76,12 @@ public class OrderedIntList {
 		// my implementation
 		if (isEmpty)
 			return true;
+		System.out.println("\nlist: " + this);
+		System.out.println("elem: " + value);
+		if (!left.isEmpty)
+			System.out.println("left greatest:\t" + left.greatest());
+		if (!right.isEmpty)
+			System.out.println("right least:\t" + right.least());
 		if (left == null || right == null || !left.repOk() || !right.repOk()
 				|| (!left.isEmpty && left.greatest() >= value)
 				|| (!right.isEmpty && right.least() <= value))
@@ -238,9 +248,7 @@ public class OrderedIntList {
 	@Override
 	public String toString() {
 		// my implementation
-		if (isEmpty)
-			return "";
-		return left.toString() + " " + value + " " + right.toString();
+		return isEmpty ? "" : (left.toString() + " " + value + " " + right.toString()).trim();
 	}
 
 }
