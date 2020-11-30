@@ -41,7 +41,7 @@ public abstract class IntList {
 	public abstract boolean repOK();
 
 	public String toString() {
-		String res = "[";
+		String res = "";
 		Iterator<Integer> it = elements();
 		if (size() > 0) {
 			Integer n = it.next();
@@ -51,7 +51,7 @@ public abstract class IntList {
 			}
 			res += n;
 		}
-		return res + "]";
+		return res;
 	}
 
 	public boolean equals(Object o) {

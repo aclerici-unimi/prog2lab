@@ -11,12 +11,30 @@ public class MaxMinIntList extends IntList {
 		min = 420;
 	}
 
+	/*
+	 * Abstraction Function: AF() = elements, with max = max and min = min;
+	 *
+	 * Representation Invariant: elements is non null; elements.length=0 or (max is
+	 * the maximum of the elements in elements, min is the minimum of the elements
+	 * in elements).
+	 */
+
+	/**
+	 * Returns the maximum of this MaxMinIntList.
+	 * 
+	 * @return the maximum
+	 */
 	public Integer max() {
 		if (elements.length == 0)
 			throw new EmptyException();
 		return max;
 	}
 
+	/**
+	 * Returns the minimum of this MaxMinIntList.
+	 * 
+	 * @return minimum
+	 */
 	public Integer min() {
 		if (elements.length == 0)
 			throw new EmptyException();
@@ -75,6 +93,8 @@ public class MaxMinIntList extends IntList {
 		int toAdd = (Integer) x;
 		int[] newArr = Arrays.copyOf(elements, elements.length + 1);
 		newArr[elements.length] = toAdd;
+		if (elements.length == 0)
+			return new MaxMinIntList(newArr, toAdd, toAdd);
 		return new MaxMinIntList(newArr, toAdd > max ? toAdd : max, toAdd < min ? toAdd : min);
 	}
 
@@ -87,7 +107,7 @@ public class MaxMinIntList extends IntList {
 	public boolean repOK() {
 		if (elements == null)
 			return false;
-		return findMax(0) == max && findMin(0) == min;
+		return elements.length == 0 || findMax(0) == max && findMin(0) == min;
 	}
 
 	@Override
