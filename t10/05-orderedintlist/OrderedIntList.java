@@ -2,7 +2,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Data structure containing a mutable ordered list of integers.
+ * OVERVIEW: An ordered list is a mutable ordered list of integers. A typical
+ * list is a sequence [x1, ..., xn] where {@codex i < xj if i < j}.
  */
 public class OrderedIntList {
 	// Most of this specification was originally contained in Barbara Liskov and
@@ -23,6 +24,9 @@ public class OrderedIntList {
 	 * < right.least}
 	 */
 
+	/**
+	 * EFFECTS: Initializes this to be an empty ordered list.
+	 */
 	public OrderedIntList() {
 		this.isEmpty = true;
 		assert repOk();
@@ -89,25 +93,12 @@ public class OrderedIntList {
 		return true;
 	}
 
-	public int size() {
-		return isEmpty ? 0 : 1 + left.size() + right.size();
-	}
-
-	public boolean isEmpty() {
-		return isEmpty;
-	}
-
-	public boolean contains(int value) {
-		if (isEmpty)
-			return false;
-		if (value == this.value)
-			return true;
-		if (value < this.value)
-			return left.contains(value);
-		else
-			return right.contains(value);
-	}
-
+	/**
+	 * EFFECTS: If el is in this, throws DuplicateException; otherwise, adds el to
+	 * this.
+	 *
+	 * MODIFIES: this
+	 */
 	public void add(int value) {
 		if (value == this.value)
 			throw new IllegalArgumentException("Duplicate value");
@@ -123,14 +114,12 @@ public class OrderedIntList {
 		assert repOk();
 	}
 
-	private int min() {
-		if (isEmpty)
-			throw new NoSuchElementException();
-		if (left.isEmpty)
-			return value;
-		return left.min();
-	}
-
+	/**
+	 * MODIFIES: this
+	 *
+	 * EFFECTS: If el is not in this, throws NotFoundException; otherwise, removes
+	 * el from this.
+	 */
 	public boolean remove(int value) {
 		if (isEmpty)
 			return false;
@@ -160,6 +149,46 @@ public class OrderedIntList {
 			return right.remove(value);
 	}
 
+	/**
+	 * EFFECTS: If el is in this returns true else returns false. Originally called
+	 * isIn.
+	 */
+	public boolean contains(int value) {
+		if (isEmpty)
+			return false;
+		if (value == this.value)
+			return true;
+		if (value < this.value)
+			return left.contains(value);
+		else
+			return right.contains(value);
+	}
+
+	/**
+	 * EFFECTS: Returns true if this is empty else returns false.
+	 */
+	public boolean isEmpty() {
+		return isEmpty;
+	}
+
+	/**
+	 * EFFECTS: If this is empty, throws EmptyException; otherwise, returns the
+	 * smallest element of this. Originally called least.
+	 */
+	public int min() {
+		if (isEmpty)
+			throw new NoSuchElementException();
+		if (left.isEmpty)
+			return value;
+		return left.min();
+	}
+
+	/**
+	 * EFFECTS: Returns a generator that will produce the elements of this (as
+	 * Integers), each exactly once, in order from smallest to largest.
+	 *
+	 * REQUIRES: this must not be modified while the generator is in use.
+	 */
 	public Iterator<Integer> smallToBig() {
 		return new Iterator<>() {
 			private boolean used = false;
@@ -200,6 +229,21 @@ public class OrderedIntList {
 		};
 	}
 
+	/**
+	 * Returns this list's size.
+	 * 
+	 * @return the size.
+	 */
+	public int size() {
+		return isEmpty ? 0 : 1 + left.size() + right.size();
+	}
+
+	/**
+	 * Returns an iterator that will produce the elements of this ordered from
+	 * smallest to largest.
+	 * 
+	 * @return the iterator.
+	 */
 	public Iterator<Integer> bigToSmall() {
 		return new Iterator<>() {
 			private boolean used = false;

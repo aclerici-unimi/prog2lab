@@ -2,9 +2,6 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Test {
-	static void iterateAndPrint(Iterator<Integer> it, int n) {
-	}
-
 	public static void main(String[] args) {
 		OrderedIntList l = new OrderedIntList();
 		Scanner sc = new Scanner(System.in);
