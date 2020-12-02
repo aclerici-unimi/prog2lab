@@ -7,12 +7,6 @@ import java.util.Iterator;
 public class MaxIntSet extends IntSet {
 	private int biggest;
 
-	/**
-	 * EFFECTS: Makes this be the empty MaxIntSet.
-	 */
-	// public MaxIntSet() {
-	// }
-
 	private int findMax() {
 		Iterator<Integer> it = elements();
 		int max = it.next();
