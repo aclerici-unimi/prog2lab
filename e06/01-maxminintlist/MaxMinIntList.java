@@ -26,7 +26,8 @@ public class MaxMinIntList extends IntList {
 	/**
 	 * Returns the maximum of this MaxMinIntList.
 	 * 
-	 * @return the maximum
+	 * @return the maximum.
+	 * @throws EmptyException if the list is empty.
 	 */
 	public Integer max() {
 		if (elements.length == 0)
@@ -37,7 +38,8 @@ public class MaxMinIntList extends IntList {
 	/**
 	 * Returns the minimum of this MaxMinIntList.
 	 * 
-	 * @return the minimum
+	 * @return the minimum.
+	 * @throws EmptyException if the list is empty.
 	 */
 	public Integer min() {
 		if (elements.length == 0)
