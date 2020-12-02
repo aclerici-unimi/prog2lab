@@ -1,6 +1,10 @@
 import java.util.Arrays;
 import java.util.Iterator;
 
+/**
+ * Partial implementation of IntList that works only for Integer objects.
+ * Precisely, it stores them as {@code int}s.
+ */
 public class MaxMinIntList extends IntList {
 	private final int[] elements;
 	private final int max, min;
@@ -33,7 +37,7 @@ public class MaxMinIntList extends IntList {
 	/**
 	 * Returns the minimum of this MaxMinIntList.
 	 * 
-	 * @return minimum
+	 * @return the minimum
 	 */
 	public Integer min() {
 		if (elements.length == 0)
@@ -88,14 +92,20 @@ public class MaxMinIntList extends IntList {
 
 	@Override
 	public IntList addEl(Object x) {
-		if (!(x instanceof Integer))
-			throw new IllegalArgumentException();
-		int toAdd = (Integer) x;
+		if (x instanceof Integer)
+			return addEl((Integer) x);
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * EFFECTS: Adds x to the beginning of this.
+	 */
+	public IntList addEl(Integer x) {
 		int[] newArr = Arrays.copyOf(elements, elements.length + 1);
-		newArr[elements.length] = toAdd;
+		newArr[elements.length] = x;
 		if (elements.length == 0)
-			return new MaxMinIntList(newArr, toAdd, toAdd);
-		return new MaxMinIntList(newArr, toAdd > max ? toAdd : max, toAdd < min ? toAdd : min);
+			return new MaxMinIntList(newArr, x, x);
+		return new MaxMinIntList(newArr, x > max ? x : max, x < min ? x : min);
 	}
 
 	@Override
@@ -111,8 +121,8 @@ public class MaxMinIntList extends IntList {
 	}
 
 	@Override
-	public Iterator<Integer> elements() {
-		return new Iterator<Integer>() {
+	public Iterator<Object> elements() {
+		return new Iterator<Object>() {
 			private int nextIndex = 0;
 
 			@Override
@@ -125,6 +135,16 @@ public class MaxMinIntList extends IntList {
 				return elements[nextIndex++];
 			}
 		};
+	}
+
+	@Override
+	public String toString() {
+		String res = "";
+		for (int i = 0; i < elements.length - 1; i++) {
+			res += elements[i] + ", ";
+		}
+		res += elements[elements.length - 1];
+		return res;
 	}
 
 }

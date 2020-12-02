@@ -26,7 +26,7 @@ public abstract class IntList {
 	 * EFFECTS: Returns a generator that will produce the elements of this, each
 	 * exactly once, in their order in this.
 	 */
-	public abstract Iterator<Integer> elements();
+	public abstract Iterator<Object> elements();
 
 	/**
 	 * EFFECTS: Adds x to the beginning of this.
@@ -42,9 +42,9 @@ public abstract class IntList {
 
 	public String toString() {
 		String res = "";
-		Iterator<Integer> it = elements();
+		Iterator<Object> it = elements();
 		if (size() > 0) {
-			Integer n = it.next();
+			Object n = it.next();
 			while (it.hasNext()) {
 				res += n + ", ";
 				n = it.next();
@@ -63,10 +63,10 @@ public abstract class IntList {
 	}
 
 	public boolean equals(IntList o) {
-		Iterator<Integer> it = elements(), ito = o.elements();
+		Iterator<Object> it = elements(), ito = o.elements();
 		while (it.hasNext() && ito.hasNext()) {
-			Integer i = it.next();
-			Integer io = ito.next();
+			Object i = it.next();
+			Object io = ito.next();
 			if (!i.equals(io))
 				return false;
 		}
