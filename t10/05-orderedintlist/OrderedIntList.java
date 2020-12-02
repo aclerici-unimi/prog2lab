@@ -80,12 +80,6 @@ public class OrderedIntList {
 		// my implementation
 		if (isEmpty)
 			return true;
-		System.out.println("\nlist: " + this);
-		System.out.println("elem: " + value);
-		if (!left.isEmpty)
-			System.out.println("left greatest:\t" + left.greatest());
-		if (!right.isEmpty)
-			System.out.println("right least:\t" + right.least());
 		if (left == null || right == null || !left.repOk() || !right.repOk()
 				|| (!left.isEmpty && left.greatest() >= value)
 				|| (!right.isEmpty && right.least() <= value))
