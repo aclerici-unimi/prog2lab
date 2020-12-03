@@ -155,7 +155,7 @@ public class Rational {
 	 * Compares the specified object with this Rational for equality. Two
 	 * {@code Rational}s a/b and c/d are defined to be equal if {@code ad=bc}.
 	 *
-	 * @param o the object to be compared with this.
+	 * @param obj the object to be compared with this.
 	 * @return true if this and o are equals.
 	 */
 	@Override

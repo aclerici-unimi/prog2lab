@@ -88,8 +88,8 @@ public class OrderedIntList {
 	}
 
 	/**
-	 * EFFECTS: If el is in this, throws DuplicateException; otherwise, adds el to
-	 * this.
+	 * EFFECTS: If el is in this, throws IllegalArgumentException; otherwise, adds
+	 * el to this. Originally, it threw DuplicateException.
 	 *
 	 * MODIFIES: this
 	 */
@@ -109,10 +109,13 @@ public class OrderedIntList {
 	}
 
 	/**
-	 * MODIFIES: this
+	 * If value is in this returns true and removes it, else returns false.
 	 *
+	 * Original:<br>
 	 * EFFECTS: If el is not in this, throws NotFoundException; otherwise, removes
-	 * el from this.
+	 * el from this.<br>
+	 *
+	 * MODIFIES: this
 	 */
 	public boolean remove(int value) {
 		if (isEmpty)
