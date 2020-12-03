@@ -90,4 +90,18 @@ public class IntSet {
 		return true;
 	}
 
+	public String toString() {
+		String res = "";
+		if (elements.size() > 0) {
+			Iterator<Integer> it = elements.iterator();
+			Integer n = it.next();
+			while (it.hasNext()) {
+				res += n + ", ";
+				n = it.next();
+			}
+			res += n;
+		}
+		return res;
+	}
+
 }
