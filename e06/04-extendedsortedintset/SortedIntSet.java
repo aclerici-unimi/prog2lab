@@ -56,18 +56,25 @@ public class SortedIntSet extends IntSet {
 	public boolean subset(IntSet s) {
 		if (s instanceof SortedIntSet)
 			return subset((SortedIntSet) s);
-		Iterator<Integer> it = s.elements();
+		Iterator<Integer> it = this.els.smallToBig();
 		while (it.hasNext()) {
-			if (!els.contains(it.next()))
+			if (!s.isIn(it.next()))
 				return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Returns true if this is a subset of s. That is, if each element of this is
+	 * also contained in s.
+	 * 
+	 * @param s second set.
+	 * @return true if this is a subset of s, false otherwise.
+	 */
 	public boolean subset(SortedIntSet s) {
-		Iterator<Integer> it = els.smallToBig();
+		Iterator<Integer> it = this.els.smallToBig();
 		while (it.hasNext()) {
-			if (!els.contains(it.next()))
+			if (!s.els.contains(it.next()))
 				return false;
 		}
 		return true;

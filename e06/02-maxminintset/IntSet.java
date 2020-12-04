@@ -84,8 +84,8 @@ public class IntSet {
 	 * EFFECTS: Returns true if this is a subset of s else returns false.
 	 */
 	public boolean subset(IntSet s) {
-		for (Integer el : s.elements)
-			if (!this.elements.contains(el))
+		for (Integer el : this.elements)
+			if (!s.elements.contains(el))
 				return false;
 		return true;
 	}

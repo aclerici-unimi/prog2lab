@@ -59,9 +59,9 @@ public abstract class IntSet {
 	 * EFFECTS: Returns true if this is a subset of s else returns false.
 	 */
 	public boolean subset(IntSet s) {
-		Iterator<Integer> it = s.elements();
+		Iterator<Integer> it = this.elements();
 		while (it.hasNext()) {
-			if (!this.isIn(it.next()))
+			if (!s.isIn(it.next()))
 				return false;
 		}
 		return true;
