@@ -23,6 +23,7 @@ public class Poly implements Cloneable {
 	 */
 	public Poly() {
 		this.coeff = new int[0]; // not null reference, there's no last element (so not 0)
+		assert repOk();
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class Poly implements Cloneable {
 			throw new NegativeExponentException("can't create monomial: negative degree");
 		this.coeff = new int[n + 1]; // not null reference (has zero at the end)
 		this.coeff[n] = c; // the zero at the end is no more (c!=0 as previously checked)
-		assert repOk();
+		assert repOk() : this;
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class Poly implements Cloneable {
 	 * @return true if the representation is ok; false otherwise.
 	 */
 	public boolean repOk() {
-		return coeff != null && coeff[coeff.length - 1] == 0;
+		return coeff != null && (coeff.length == 0 || coeff[coeff.length - 1] != 0);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class Poly implements Cloneable {
 		// small.coeff[newDeg]+large.coeff[newDeg]!=0, as proven by loop A: in this case
 		// loop B determines X to be !=0 (loop C is certain not to be executed since
 		// loop B exits for the loss of the second condition).
-		assert res.repOk();
+		assert res.repOk() : res;
 		return res;
 	}
 

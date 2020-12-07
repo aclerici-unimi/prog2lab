@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
 final public class MaxMinIntSet extends MaxIntSet {
-	private int smallest = 0;
+	private int smallest;
 
 	private int findMin() {
 		Iterator<Integer> it = elements();

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -55,7 +54,7 @@ public class Poly {
 	 * @return true if the representation is ok; false otherwise.
 	 */
 	public boolean repOk() {
-		return coeff != null && coeff[coeff.length - 1] != 0;
+		return coeff != null && (coeff.length == 0 || coeff[coeff.length - 1] != 0);
 	}
 
 	/**

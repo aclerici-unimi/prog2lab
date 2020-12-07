@@ -82,11 +82,10 @@ public class SortedIntSet extends IntSet {
 
 	@Override
 	public void insert(int x) {
-		try {
+		if (!els.contains(x)) {
 			els.add(x);
-		} catch (IllegalArgumentException ignored) {
+			sz++;
 		}
-		sz++;
 	}
 
 	@Override
