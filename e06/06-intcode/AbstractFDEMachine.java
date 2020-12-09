@@ -10,13 +10,10 @@ public abstract class AbstractFDEMachine implements FDEMachine {
 	protected boolean isRunning;
 
 	/** Runs until a halting instruction stops the execution. */
-	void run() {
+	public void run() {
 		isRunning = true;
 		while (isRunning)
 			runCycle();
 	}
-
-	// enum instructions {
-	// };
 
 }
