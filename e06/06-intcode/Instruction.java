@@ -5,7 +5,9 @@
 public interface Instruction {
 
 	/**
-	 * Returns the quantity of memory units used by this.
+	 * Returns the quantity of memory units used by this before being decoded.
+	 * Useful in machines with a ProgrmCounter-like mechanism, to know how many
+	 * units to shift.
 	 * 
 	 * @return the size.
 	 */

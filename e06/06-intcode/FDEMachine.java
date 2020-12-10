@@ -14,10 +14,10 @@ public interface FDEMachine {
 	List<Integer> fetch();
 
 	/**
-	 * Uses the data previously fetched to construct an instruction, complete of
-	 * task and metadata.
+	 * Uses the data previously fetched to construct an {@link Instruction},
+	 * complete of task and metadata.
 	 * 
-	 * @param ri
+	 * @param rawText text to extract the Instruction from.
 	 */
 	Instruction decode(List<Integer> rawText);
 

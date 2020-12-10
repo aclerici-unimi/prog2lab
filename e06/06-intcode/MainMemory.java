@@ -2,8 +2,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Abstraction of the concept of main memory. A main memory can be fetched in
- * mass, that is, each cell in an index interval is fetched alltogether.
+ * Abstraction of the concept of main {@link Memory}. A main memory can be
+ * fetched in mass, that is, each cell in an index interval is fetched
+ * alltogether.
  */
 public interface MainMemory extends Memory {
 

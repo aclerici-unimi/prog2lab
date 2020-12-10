@@ -8,7 +8,6 @@ public class Test {
 			program.add(Integer.parseInt(s));
 		IntCodeVM vm = new IntCodeVM(program);
 		vm.run();
-		// vm.debugRun(); // debug
 		System.out.println(vm);
 	}
 }
