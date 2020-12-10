@@ -36,6 +36,7 @@ public interface Set<E> extends Iterable<E> {
 	 * @param e element to be added in this.
 	 * @return true if this set did not already contain the specified element, false
 	 *         otherwise.
+	 * @throws NullPointerException if e is null.
 	 */
 	boolean add(E e);
 

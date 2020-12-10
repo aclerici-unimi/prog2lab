@@ -11,7 +11,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
 	 * entries.get(entries.size()-1) If entries.isEmpty(), AF(entries) is the empty
 	 * map.
 	 *
-	 * Representation Invariant: q is not null.
+	 * Representation Invariant: q is not null; there aren't two entries e1 and e2
+	 * such that e1.key==e2.key.
 	 */
 
 	/** Constructs an empty SimpleMap. */
@@ -81,16 +82,18 @@ public class SimpleMap<K, V> implements Map<K, V> {
 	@Override
 	public V put(K key, V value) {
 		if (key == null || value == null)
-			throw new NullPointerException();
+			throw new NullPointerException("the map can't have null keys or values");
 		Map.Entry<K, V> found = findEntry(key);
+		V retVal;
 		if (found == null) {
 			entries.add(new SimpleEntry<K, V>(key, value));
-			return null;
+			retVal = null;
 		} else {
-			V retVal = found.getValue();
+			retVal = found.getValue();
 			found.setValue(value);
-			return retVal;
 		}
+		assert repOk();
+		return retVal;
 	}
 
 	@Override
@@ -101,6 +104,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 		else {
 			V retval = found.getValue();
 			entries.remove(found);
+			assert repOk();
 			return retval;
 		}
 	}
@@ -123,9 +127,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
 		 */
 		public SimpleEntry(K key, V value) {
 			if (key == null || value == null)
-				throw new NullPointerException();
+				throw new NullPointerException("can't instantiate an entry with null arguments");
 			this.key = key;
 			this.value = value;
+			assert repOk();
 		}
 
 		/**
@@ -152,7 +157,71 @@ public class SimpleMap<K, V> implements Map<K, V> {
 		public V setValue(V value) {
 			V retVal = this.value;
 			this.value = value;
+			assert repOk();
 			return retVal;
 		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == this)
+				return true;
+			if (!(obj instanceof SimpleEntry))
+				return false;
+			SimpleEntry<?, ?> other = (SimpleEntry<?, ?>) obj;
+			return this.key.equals(other.key) && this.value == other.value;
+		}
+
+		@Override
+		public int hashCode() {
+			return 31 * key.hashCode() + value.hashCode();
+		}
+
+		@Override
+		public String toString() {
+			return key + " -> " + value;
+		}
+
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof SimpleMap))
+			return false;
+		SimpleMap<?, ?> other = (SimpleMap<?, ?>) obj;
+		if (entries.size() != other.entries.size())
+			return false;
+		for (Entry<K, V> e : entries) {
+			Entry<K, V> otherEntry = findEntry(e.getKey());
+			if (otherEntry == null || !e.equals(otherEntry))
+				return false;
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int res = 31;
+		for (Entry<?, ?> e : entries)
+			res = res * 31 + e.hashCode();
+		return res;
+	}
+
+	@Override
+	public String toString() {
+		String res = "{ ";
+		int size = this.size();
+		if (size > 0) {
+			Iterator<Entry<K, V>> it = entries.iterator();
+			Entry<K, V> p = it.next();
+			while (it.hasNext()) {
+				res += p.toString() + ", ";
+				p = it.next();
+			}
+			res += p.toString() + " ";
+		}
+		return res + "}";
+	}
+
 }

@@ -43,6 +43,7 @@ public interface Map<K, V> extends Iterable<Map.Entry<K, V>> {
 	 * @param value the value
 	 * @return the previous value associated with key, or null if there was no
 	 *         mapping for key.
+	 * @throws NullPointerException if key or value are null.
 	 */
 	V put(K key, V value);
 
@@ -57,10 +58,27 @@ public interface Map<K, V> extends Iterable<Map.Entry<K, V>> {
 
 	interface Entry<K, V> {
 
+		/**
+		 * Returns the key of this Entry.
+		 * 
+		 * @return the key.
+		 */
 		K getKey();
 
+		/**
+		 * Returns the value of this Entry.
+		 * 
+		 * @return the value.
+		 */
 		V getValue();
 
+		/**
+		 * Changes the value of this Entry to {@code value}. Returns the substituted
+		 * value.
+		 * 
+		 * @param value the new value.
+		 * @return the old value.
+		 */
 		V setValue(V value);
 	}
 

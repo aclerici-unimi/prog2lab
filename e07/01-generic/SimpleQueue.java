@@ -15,6 +15,7 @@ public class SimpleQueue<E> implements Queue<E> {
 
 	public SimpleQueue() {
 		q = new LinkedList<E>();
+		assert repOk();
 	}
 
 	/**
@@ -44,16 +45,41 @@ public class SimpleQueue<E> implements Queue<E> {
 
 	@Override
 	public boolean enqueue(E e) {
-		return q.add(e);
+		boolean retVal = q.add(e);
+		assert repOk();
+		return retVal;
 	}
 
 	@Override
 	public E dequeue() {
 		if (q.isEmpty())
 			throw new NoSuchElementException("can't dequeue, queue is empty");
-		E out = q.remove(0); // still not null
+		E retVal = q.remove(0);
 		assert repOk();
-		return out;
+		return retVal;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof SimpleQueue))
+			return false;
+		SimpleQueue<?> other = (SimpleQueue<?>) obj;
+		if (q.size() != other.q.size())
+			return false;
+		for (E el : q)
+			if (!other.q.contains(el))
+				return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int res = 31;
+		for (E e : q)
+			res = res * 31 + e.hashCode();
+		return res;
 	}
 
 	@Override
@@ -70,4 +96,5 @@ public class SimpleQueue<E> implements Queue<E> {
 		}
 		return res + "]";
 	}
+
 }

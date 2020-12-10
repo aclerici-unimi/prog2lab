@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public interface Queue<E> extends Iterable<E> {
 
 	/**
@@ -27,6 +29,7 @@ public interface Queue<E> extends Iterable<E> {
 	 * Removes and returns the element at the head of this queue.
 	 * 
 	 * @return the removed element.
+	 * @throws NoSuchElementException if the queue is empty.
 	 */
 	E dequeue();
 

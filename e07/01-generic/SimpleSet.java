@@ -18,6 +18,7 @@ public class SimpleSet<E> implements Set<E> {
 	/** Constructs an empty SimpleSet. */
 	public SimpleSet() {
 		els = new LinkedList<E>();
+		assert repOk();
 	}
 
 	/**
@@ -65,16 +66,17 @@ public class SimpleSet<E> implements Set<E> {
 	@Override
 	public E choose() {
 		if (els.isEmpty())
-			throw new NoSuchElementException();
+			throw new NoSuchElementException("can't choose an element: the set is empty");
 		return els.get(0);
 	}
 
 	@Override
 	public boolean add(E e) {
 		if (e == null)
-			throw new NullPointerException();
+			throw new NullPointerException("can't ad a null element");
 		if (!els.contains(e)) {
 			els.add(e);
+			assert repOk();
 			return true;
 		}
 		return false;
@@ -82,6 +84,47 @@ public class SimpleSet<E> implements Set<E> {
 
 	@Override
 	public boolean remove(Object o) {
-		return els.remove(o);
+		boolean retVal = els.remove(o);
+		assert repOk();
+		return retVal;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof SimpleSet))
+			return false;
+		SimpleSet<?> other = (SimpleSet<?>) obj;
+		if (els.size() != other.els.size())
+			return false;
+		for (E el : els)
+			if (!other.els.contains(el))
+				return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int res = 31;
+		for (E e : els)
+			res = res * 31 + e.hashCode();
+		return res;
+	}
+
+	@Override
+	public String toString() {
+		String res = "{ ";
+		if (els.size() > 0) {
+			Iterator<E> it = els.iterator();
+			E el = it.next();
+			while (it.hasNext()) {
+				res += el + ", ";
+				el = it.next();
+			}
+			res += el + " ";
+		}
+		return res + "}";
+	}
+
 }
