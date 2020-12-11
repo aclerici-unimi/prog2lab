@@ -17,7 +17,7 @@ public class SimpleMap implements Cloneable {
 	 * entries.get(entries.size()-1)}.
 	 *
 	 * Representation Invariant: entries is not null, entries cannot contain two
-	 * Pairs p1 and p2 such that p1.key == p2.key; *
+	 * Pairs p1 and p2 such that p1.key == p2.key;
 	 *
 	 * Abstraction Invariant: a map maps two equal keys into two equal values
 	 */
@@ -52,13 +52,12 @@ public class SimpleMap implements Cloneable {
 
 	private static class Pair {
 		private final String key;
-		int value;
+		private int value;
 
 		/*
 		 * Abstraction Function: A(key, value) = mapping key->value
 		 *
-		 * Representation Invariant: this!=null and this.key!=null Pairs p1 and p2 such
-		 * that p1.key == p2.key; *
+		 * Representation Invariant: key is not null
 		 */
 
 		Pair(String key, int value) { // can't be null
@@ -98,7 +97,7 @@ public class SimpleMap implements Cloneable {
 		public boolean equals(Object obj) {
 			if (obj == this)
 				return true;
-			if (!(obj instanceof SimpleMap))
+			if (!(obj instanceof Pair))
 				return false;
 			Pair other = (Pair) obj;
 			return this.key.equals(other.key) && this.value == other.value;
@@ -111,7 +110,7 @@ public class SimpleMap implements Cloneable {
 		 */
 		@Override
 		public int hashCode() {
-			return 31 * key.hashCode() + value;
+			return 31 * key.hashCode() + Integer.hashCode(value);
 		}
 
 		/**
@@ -258,7 +257,7 @@ public class SimpleMap implements Cloneable {
 		int res = 0;
 		for (Pair p : entries)
 			res += 31 * p.hashCode();
-		return 31 * res;
+		return 31 * entries.size() + res;
 	}
 
 	/**
