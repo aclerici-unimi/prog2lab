@@ -1,8 +1,19 @@
 /**
  * Simple abstraction of an astronomical system. An {@code AstroSystem} has a
- * total energy and it can evolve with respect to a determined time unit.
+ * total energy and it can evolve with respect to a determined time unit
+ * {@code T}.
  */
 public interface AstroSystem<T extends Number> {
+
+	/**
+	 * Returns the total energy of this system.
+	 * 
+	 * @return total energy.
+	 */
+	T energy();
+
+	/** Simulates the evolution of this AstroSystem in one time unit. */
+	void evolve();
 
 	/**
 	 * Simple abstraction of a celestial (astronomical) object, having a position
@@ -22,7 +33,7 @@ public interface AstroSystem<T extends Number> {
 		 * 
 		 * @return the total energy.
 		 */
-		Number energy();
+		T energy();
 
 		/** Returns the kinetic energy of this CelestialObject. */
 
@@ -31,25 +42,22 @@ public interface AstroSystem<T extends Number> {
 		 * 
 		 * @return the kinetic energy.
 		 */
-		Number kineticEnergy();
+		T kineticEnergy();
 
 		/**
 		 * Returns the potential energy of this CelestialObject.
 		 * 
 		 * @return the potential energy.
 		 */
-		Number potentialEnergy();
+		T potentialEnergy();
+
+		/**
+		 * Returns the name of this {@code DiscreteCelestialObject}.
+		 * 
+		 * @return the name.
+		 */
+		String name();
 
 	}
-
-	/**
-	 * Returns the total energy of this system.
-	 * 
-	 * @return total energy.
-	 */
-	Number energy();
-
-	/** Simulates the evolution of this AstroSystem in one time unit. */
-	void evolve();
 
 }

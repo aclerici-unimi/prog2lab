@@ -11,4 +11,10 @@ public interface Planet<T extends Number> extends AstroSystem.CelestialObject<T>
 	 */
 	ThreeDVector<T> velocity();
 
+	/** Sets this {@code Planet}'s velocity to the given {@link ThreeDVector}. */
+	void deltaVelocity(ThreeDVector<T> v);
+
+	/** Updates this {@code Planet}'s position in function of its velocity. */
+	void move();
+
 }

@@ -8,11 +8,11 @@ public class SimpleLong3DVector implements ThreeDVector<Long> {
 	long z;
 
 	/**
-	 * Constructs a SimpleInt3DVector with the given coordinates.
+	 * Constructs a SimpleInt3DVector with the given components.
 	 * 
-	 * @param x x coordinate.
-	 * @param y y coordinate.
-	 * @param z z coordinate.
+	 * @param x x component.
+	 * @param y y component.
+	 * @param z z component.
 	 */
 	public SimpleLong3DVector(long x, long y, long z) {
 		this.x = x;
@@ -43,6 +43,11 @@ public class SimpleLong3DVector implements ThreeDVector<Long> {
 	@Override
 	public Long norm() {
 		return Math.abs(x) + Math.abs(y) + Math.abs(z);
+	}
+
+	@Override
+	public String toString() {
+		return "(" + x + ", " + y + ", " + z + ")";
 	}
 
 }
