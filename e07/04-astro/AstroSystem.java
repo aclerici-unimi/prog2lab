@@ -3,7 +3,7 @@
  * total energy and it can evolve with respect to a determined time unit
  * {@code T}.
  */
-public interface AstroSystem<T extends Number> {
+public interface AstroSystem<T extends Number> extends Iterable<AstroSystem.CelestialObject<T>> {
 
 	/**
 	 * Returns the total energy of this system.

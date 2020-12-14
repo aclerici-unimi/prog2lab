@@ -28,8 +28,9 @@ public interface ThreeDVector<T extends Number> {
 	/**
 	 * Returns the sum of this and v. The operation is optional.
 	 * 
-	 * @param v the second addend.
+	 * @param other the second addend.
 	 * @return the sum.
+	 * @throws NullPointerException if other is null.
 	 */
 	ThreeDVector<T> plus(ThreeDVector<T> other);
 
