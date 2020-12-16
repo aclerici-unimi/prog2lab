@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -54,14 +55,22 @@ public class PartitionedSet<E> implements Set<E> {
 	}
 
 	/**
-	 * Returns ...
+	 * Returns an iterator over the partitions in this {@code PartitionedSet}.
 	 * 
-	 * @return
+	 * @return the iterator.
 	 */
 	public Iterator<Partition<E>> partitions() {
 		return partitions.iterator();
 	}
 
+	/**
+	 * Returns an iterator over the partitions in this {@code PartitionedSet},
+	 * sorted according to the order induced by the given {@code Comparator}. Does
+	 * not check for modification afterwards. The user can design the comparator so
+	 * that it avoids equiparable partitions, otherwise their order is unspecified.
+	 * 
+	 * @return the iterator.
+	 */
 	public Iterator<Partition<E>> sortedPartitions(Comparator<Partition<E>> comp) {
 		partitions.sort(comp);
 		return partitions.iterator();
@@ -148,15 +157,60 @@ public class PartitionedSet<E> implements Set<E> {
 
 		@Override
 		public Iterator<E> iterator() {
-			// TODO Auto-generated method stub
-			return null;
+			return els.iterator();
 		}
 
+		/**
+		 * Returns an iterator over the elements in this {@code Partition}, sorted
+		 * according to the order induced by the given {@code Comparator}. Does not
+		 * check for modification afterwards.
+		 * 
+		 * @return the iterator.
+		 */
 		public Iterator<E> sortedElements(Comparator<E> comp) {
 			els.sort(comp);
 			return els.iterator();
 		}
 
+		public E min(Comparator<E> comp) {
+			return Collections.min(els, comp);
+		}
+
+		public E max(Comparator<E> comp) {
+			return Collections.max(els, comp);
+		}
+
+		public String sortedToString(Comparator<E> comp) {
+			String res = "[";
+			if (els.size() > 0) {
+				Iterator<E> it = sortedElements(comp);
+				E el = it.next();
+				while (it.hasNext()) {
+					res += el + ", ";
+					el = it.next();
+				}
+				res += el;
+			}
+			return res + "]";
+		}
+
+	}
+
+	@Override
+	public String toString() {
+		String res = "";
+		for (Partition<E> part : partitions)
+			res += part;
+		return res;
+	}
+
+	public String sortedToString(Comparator<Partition<E>> partComp, Comparator<E> elComp) {
+		String res = "";
+		Iterator<Partition<E>> it = sortedPartitions(partComp);
+		while (it.hasNext()) {
+			res += it.next().sortedToString(elComp) + "\n";
+		}
+		return res.trim();
 	}
 
 }
