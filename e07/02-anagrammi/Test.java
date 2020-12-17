@@ -11,7 +11,7 @@ public class Test {
 	}
 
 	public static void main(String[] args) {
-		PartitionedSet<String> anagramSet = new PartitionedSet<>(new Equiparator<String>() {
+		SortablePartitionedSet<String> anagramSet = new SortablePartitionedSet<>(new Equiparator<String>() {
 
 			@Override
 			public boolean equiparate(String a, String b) {
@@ -25,34 +25,26 @@ public class Test {
 			anagramSet.add(sc.next());
 		sc.close();
 
-		Iterator<PartitionedSet.Partition<String>> it = anagramSet
-				.sortedPartitions(new Comparator<PartitionedSet.Partition<String>>() {
+		Iterator<SortablePartitionedSet.SortablePartition<String>> it = anagramSet
+				.sortedPartitions(new Comparator<SortablePartitionedSet.SortablePartition<String>>() {
 
 					@Override
-					public int compare(PartitionedSet.Partition<String> arg0,
-							PartitionedSet.Partition<String> arg1) {
+					public int compare(SortablePartitionedSet.SortablePartition<String> arg0,
+							SortablePartitionedSet.SortablePartition<String> arg1) {
 						if (arg0.size() < arg1.size())
 							return 1;
 						if (arg0.size() > arg1.size())
 							return -1;
-						StringComparator comp = new StringComparator();
+						Comparator<String> comp = new SortablePartitionedSet.NaturalComparator<String>();
 						return comp.compare(arg0.min(comp), arg1.min(comp));
 					}
 				});
 		while (it.hasNext()) {
-			PartitionedSet.Partition<String> part = it.next();
+			SortablePartitionedSet.SortablePartition<String> part = it.next();
 			if (part.size() > 1)
-				System.out.println(part.sortedToString(new StringComparator()));
+				System.out.println(part.sortedToString(
+						new SortablePartitionedSet.NaturalComparator<String>()));
 		}
-	}
-
-	private static class StringComparator implements Comparator<String> {
-
-		@Override
-		public int compare(String arg0, String arg1) {
-			return arg0.compareTo(arg1);
-		}
-
 	}
 
 }
