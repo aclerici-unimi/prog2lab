@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public interface Set<E> extends Iterable<E> {
 
 	/**
@@ -17,7 +19,7 @@ public interface Set<E> extends Iterable<E> {
 	/**
 	 * Returns true if this set contains the specified element.
 	 * 
-	 * @param o element whose presence is to be tested.
+	 * @param e element whose presence is to be tested.
 	 * @return true if this contains o, false otherwise.
 	 */
 	boolean contains(E e);
@@ -43,7 +45,7 @@ public interface Set<E> extends Iterable<E> {
 	/**
 	 * Removes the specified element from this set if it is present.
 	 * 
-	 * @param o element to be removed.
+	 * @param e element to be removed.
 	 * @return true if this set contained the specified element, false otherwise.
 	 */
 	boolean remove(E e);
