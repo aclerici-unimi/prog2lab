@@ -19,13 +19,9 @@ public class Stamp extends Figure {
 	 *                       array which the stamp will use to activate pixels
 	 *                       relative to non zero positions.
 	 */
-	public Stamp(int r, int c, int[][] values) {
+	public Stamp(int r, int c, boolean[][] values) {
 		super(r, c);
-		m = new boolean[values.length][values[0].length];
-		for (int i = 0; i < values.length; i++)
-			for (int j = 0; j < values[0].length; j++)
-				if (values[i][j] != 0)
-					m[i][j] = true;
+		m = values.clone();
 		assert repOk();
 	}
 

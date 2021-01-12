@@ -1,9 +1,11 @@
 /**
  * Abstraction of a Segment Figure.
  *
+ * @absFun see specific concrete class.
  * @repInv l is positive.
  */
 public abstract class Segment extends Figure {
+	/** length */
 	protected final int l;
 
 	/**

@@ -5,10 +5,13 @@ import java.util.TreeMap;
 /** Interpreter for ASCIIArt code. */
 public class Interpreter {
 
+	/**
+	 * Interpretes ASCIIArt code from standard input.
+	 */
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		BitMap b = new BitMap(1, 1);
-		Map<Integer, int[][]> stamps = new TreeMap<>();
+		Map<Integer, boolean[][]> stamps = new TreeMap<>();
 		Figure f;
 		while (sc.hasNext()) {
 			switch (sc.next()) {
@@ -41,11 +44,15 @@ public class Interpreter {
 				break;
 			case "s":
 				int m = sc.nextInt();
-				int values[][] = new int[sc.nextInt()][sc.nextInt()];
-				for (int i = 0; i < values.length; i++)
-					for (int j = 0; j < values[0].length; j++)
-						values[i][j] = sc.nextInt();
-				stamps.put(m, values);
+				int x = sc.nextInt();
+				int y = sc.nextInt();
+				if (x <= 1000 && y <= 1000 && x > 0 && y > 0) {
+					boolean values[][] = new boolean[x][y];
+					for (int i = 0; i < values.length; i++)
+						for (int j = 0; j < values[0].length; j++)
+							values[i][j] = sc.nextInt() != 0 ? true : false;
+					stamps.put(m, values);
+				}
 				break;
 			case "d":
 				m = sc.nextInt();

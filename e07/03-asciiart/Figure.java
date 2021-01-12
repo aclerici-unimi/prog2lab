@@ -1,19 +1,25 @@
 /**
  * Abstraction of a figure drawable on a BitMap.
  *
+ * @absFun see specific concrete class.
  * @repInv r and c are non negative.
  */
 public abstract class Figure {
+	/** row coordinate */
 	protected final int r;
+	/** column coordinate */
 	protected final int c;
 
 	/**
 	 * Constructs a new Figure of coordinates r and c.
 	 * 
-	 * @param r row coordinate.
-	 * @param c column coordinate.
+	 * @param r
+	 *                  row coordinate.
+	 * @param c
+	 *                  column coordinate.
 	 *
-	 * @throws IllegalArgumentException if r or c is negative.
+	 * @throws IllegalArgumentException
+	 *                                          if r or c is negative.
 	 */
 	protected Figure(int r, int c) {
 		if (r < 0 || c < 0)
@@ -35,7 +41,8 @@ public abstract class Figure {
 	/**
 	 * Draw this Figure on the given {@link BitMap}.
 	 * 
-	 * @param b BitMap to draw this Figure on.
+	 * @param b
+	 *                  BitMap to draw this Figure on.
 	 */
 	abstract void drawOn(BitMap b);
 

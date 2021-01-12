@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * BitMap abstraction used by ASCIIArt code components.
  *
@@ -55,6 +57,11 @@ public class BitMap {
 	/**
 	 * Sets the state of the pixel of coordinates r, c to on.
 	 * 
+	 * @param r
+	 *                  row coordinate
+	 * @param c
+	 *                  column coordinate
+	 *
 	 * @throws IllegalArgumentException
 	 *                                          if r or c is an invalid coordinate.
 	 */
@@ -68,6 +75,11 @@ public class BitMap {
 	/**
 	 * Sets the state of the pixel of coordinates r, c to on.
 	 * 
+	 * @param r
+	 *                  row coordinate
+	 * @param c
+	 *                  column coordinate
+	 *
 	 * @throws IllegalArgumentException
 	 *                                          if r or c is an invalid coordinate.
 	 */
@@ -114,6 +126,18 @@ public class BitMap {
 			res += "\n";
 		}
 		return res.trim();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof BitMap))
+			return false;
+		BitMap other = (BitMap) obj;
+		if (!Arrays.deepEquals(m, other.m))
+			return false;
+		return true;
 	}
 
 }
