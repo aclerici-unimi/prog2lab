@@ -1,0 +1,19 @@
+mkdir uno
+mkfile uno:due 60
+mkfile tre 50
+mkdir quattro
+mkfile quattro:cinque 10
+mkfile quattro:sei 20
+mkdir quattro:sette
+mkdir quattro:sette:otto
+mkdir quattro:sette:otto:nove
+mkfile quattro:sette:otto:nove:dieci 30
+mkfile quattro:sette:undici 40
+size uno
+size tre
+size quattro
+cd quattro
+size sette
+ls sette
+cd sette
+ls otto:nove

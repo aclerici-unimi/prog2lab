@@ -1,0 +1,15 @@
+ls
+mkdir uno
+ls
+mkfile due 10
+mkfile tre 20
+ls
+size
+cd uno
+ls
+pwd
+mkdir quattro
+mkfile quattro:cinque 30
+size
+cd
+size
